@@ -3,7 +3,7 @@ filetype off "Vundle 설정을 위한 시작부분
 
 " for Vundle ---------------------
 set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin() 
+call vundle#begin()
 " must use -----------------------
 Plugin 'scrooloose/nerdtree'
 Plugin 'vim-airline/vim-airline'
@@ -12,6 +12,7 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'blueyed/vim-diminactive'
 Plugin 'neoclide/coc.nvim'
+Plugin 'iamcco/markdown-preview.nvim'
 " --------------------------------
 
 " Color scheme -------------------
@@ -28,7 +29,7 @@ call vundle#end()
 " vim 기본설정 시작
 filetype plugin indent on
 
-colorscheme jellybeans 
+colorscheme jellybeans
 
 if has("syntax") "syntax highlight
 	syntax on
@@ -40,9 +41,9 @@ set number
 set relativenumber
 
 set title "하단에 문서제목 표시
-set ruler "하단에 커서위치 표시 
+set ruler "하단에 커서위치 표시
 
-set tabstop=4 "tab 사이즈가 얼마나 보일지 
+set tabstop=4 "tab 사이즈가 얼마나 보일지
 set softtabstop=4 "실질적으로 tab으로 얼마만큼의 간격을 이동할지
 set shiftwidth=4 "자동 들여쓰기를 할 때의 설정값
 set smarttab "ts, sts, sw을 참고하여, 탭과 백스페이스 동작 보조
@@ -54,7 +55,7 @@ set smartindent
 set hlsearch "highlight when search string matches
 set incsearch "증가방향으로 검색
 set nowrapscan "검색시 파일끝에서 되돌려 검색하지 않게
-set ignorecase "대소문자 구분없이 검색 
+set ignorecase "대소문자 구분없이 검색
 
 set nowrap "자동 줄 바꿈 x
 
@@ -64,6 +65,23 @@ set laststatus=2 "for vim-airline
 
 set cursorline "현재 커서가 있는 라인을 강조
 set backspace=indent,eol,start "backspace work
+
+" 코드 저장시 행 끝에 붙은 공백 제거
+fun! TrimWhitespace()
+	let l:save = winsaveview()
+	keeppatterns %s/\s\+$//e
+	call winrestview(l:save)
+endfun
+
+augroup ZZUNNY
+	autocmd!
+	autocmd BufWritePre * :call TrimWhitespace()
+augroup END
+
+" 마지막 위치로 이동
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -105,7 +123,7 @@ map <C-l> <C-W>l
 " for blueyed/vim-diminactive
 let g:diminactive_enable_focus = 1
 
-" for CoC 
+" for CoC
 " use <tab> for trigger completion and navigate to the next complete item
 function! s:check_back_space() abort
   let col = col('.') - 1
