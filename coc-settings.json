@@ -1,0 +1,28 @@
+{
+    "diagnostic.errorSign": "✖",
+    "diagnostic.warningSign": "⚠",
+    "diagnostic.infoSign": "ℹ",
+    "diagnostic.hintSign": "➤",
+    "suggest.noselect": false,
+    "codeLens.enable": true,
+    "signature.enable": true,
+    "suggest.preferCompleteThanJumpPlaceholder": true,
+    "eslint.autoFixOnSave": true,
+    "tsserver.implicitProjectConfig.experimentalDecorators": true,
+    "python.venvFolders": ["envs",".pyenv",".direnv", "~/.local/share/virtualenvs", "~/.cache/pypoetry/virtualenvs"],
+    "python.workspaceSymbols.exclusionPatterns": [],
+    "python.jediEnabled": false,
+    "python.linting.pylintEnabled": true,
+    "python.linting.pylintArgs": [
+		"--load-plugins",
+		"pylint_django",
+		"--load-plugins",
+		"pylint_django.checkers.migrations",
+		"--disable=C0114, C0115, W0222",
+		"--disable=imported-auth-user",
+		"--disable=invalid-name",
+		"--disable=line-too-long",
+		"--disable=django-not-configured"
+	]
+}
+
